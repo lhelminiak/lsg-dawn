@@ -215,12 +215,15 @@
       {{ "accessibility.skip_to_text" | t }}
     </a>
 
-    {%- if settings.cart_type == 'drawer' -%}
-      {%- render 'cart-drawer' -%}
-    {%- endif -%}
+    {%comment%}
+      {%- if settings.cart_type == 'drawer' -%}
+        {%- render 'cart-drawer' -%}
+      {%- endif -%}
+    {%endcomment%}
 
-    {% section 'announcement-bar' %}
-    {% section 'header' %}
+    {%comment%}{% section 'announcement-bar' %}{%endcomment%}
+    {%comment%}{% section 'header' %}{%endcomment%}
+    {% section 'custom-header' %}
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
