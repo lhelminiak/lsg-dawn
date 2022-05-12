@@ -1,12 +1,9 @@
 {%comment%} Custom header component created by Luke H -- 5/11/22  {%endcomment%}
 
-{%comment%} Javascript Files {%endcomment%}
-
-
 {%comment%} CSS {%endcomment%}
 
-<link rel="stylesheet" href="{{ 'component-custom-header.css' | asset_url }}">
 
+{{ 'component-custom-header.css' | asset_url | stylesheet_tag }}
 
 <custom-header class="custom-header__wrapper">
     <header class="custom-header custom-header_transparent">
@@ -22,7 +19,7 @@
                     src="{{ section.settings.logo | image_url: height: section.settings.logo_height }}"
                     loading="lazy"
                     width="auto"
-                    height="{{ section.settings.logo.height }}"
+                    height="100"
                     alt="{{ shop.name }}"
                 />
             </a>
@@ -184,16 +181,7 @@
       "id": "logo",
       "label": "t:sections.header.settings.logo.label"
     },
-    {
-      "type": "range",
-      "id": "logo_height",
-      "min": 50,
-      "max": 80,
-      "step": 10,
-      "default": 80,
-      "unit": "t:sections.header.settings.logo_height.unit",
-      "label": "t:sections.header.settings.logo_height.label"
-    },
+
     {
         "type": "link_list",
         "id": "featured_product_links",

@@ -1,0 +1,90 @@
+
+{{ 'component-custom-hero.css' | asset_url | stylesheet_tag }}
+
+<div class="custom-hero">
+    <div>
+        {% for block in section.blocks %}
+            {% case block.type %}
+                {% when 'heading' %}
+                    {% if block.settings.hero_heading != blank%}
+                        <h1>{{ block.settings.hero_heading }}</h1>
+                    {% endif %}
+                {% when 'button' %}
+                    {% if block.settings.button_text != blank %}
+                        <a href="{{ block.settings.button_url }}">{{ block.settings.button_text }}</a>
+                    {% endif %}
+            {% endcase %}
+        {% endfor %}
+
+
+    </div>
+</div>
+
+{% schema %}
+
+{
+    "name": "Custom Hero",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "hero_image",
+            "label": "Image for hero banner"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "heading",
+            "name": "Hero Heading",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "hero_heading",
+                    "default": "Hero heading text",
+                    "label": "Heading for hero"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "name": "button",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "button_text",
+                    "default": "Button text",
+                    "label": "Text for button"
+                },
+                {
+                    "type": "url",
+                    "id": "button_url",
+                    "label": "url for button link"
+                },
+                {
+                    "type": "color",
+                    "id": "button_main_color",
+                    "label": "Main button color",
+                    "default": "#FFFFFF"
+                },
+                {
+                    "type": "color",
+                    "id": "button_border_color",
+                    "label": "Button border color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "button_text_color",
+                    "label": "Button text color",
+                    "default": "#000000"
+                }
+            ]
+        }
+    ]
+
+}
+
+{% endschema %}
