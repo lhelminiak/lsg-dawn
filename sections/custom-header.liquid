@@ -9,23 +9,16 @@
 
 
 <custom-header class="custom-header__wrapper">
-    <header class="custom-header">
+    <header class="custom-header custom-header_transparent">
 
         <div>
-            {%comment%}
-                <custom-menu-button>
-                    <button class="custom-header__menu-button" id="customMenuButton">
-                    <span>Menu</span>
-                    </button>
-                </custom-menu-button>
-            {%endcomment%}
-    
             {% render 'custom-menu-button', menu_button_text: 'menu', default_color: 'white' %}
         </div>
 
         <div>
-            <a href="{{routes.root_url}}">
+            <a href="{{ routes.root_url }}">
                 <img
+                    id="headerLogo"
                     src="{{ section.settings.logo | image_url: height: section.settings.logo_height }}"
                     loading="lazy"
                     width="auto"
@@ -36,7 +29,7 @@
         </div>
 
         <div>
-            
+            {% render 'custom-cart-icon' %}
         </div>
     </header>
 </custom-header>
@@ -59,8 +52,10 @@
 
 
             // refs
+            this.header = this.querySelector('header');
+            this.headerCartIcon = this.querySelector('.custom-cart-icon')
             this.menuButton = this.querySelector('.custom-menu-button');
-            console.log('menuButton', this.menuButton);
+            this.headerLogo = this.querySelector('#headerLogo');
 
             
 
@@ -99,9 +94,20 @@
         // transition header background to white
         // transition logo, menu and cart icon from white to black
         makeHeaderOpaque() {
+            // change header background color to white
+            this.header.classList.remove('custom-header_transparent');
+            this.header.classList.add('custom-header_opaque');
+
+            // change header menu button color
             this.menuButton.classList.remove('custom-menu-button_white');
             this.menuButton.classList.add('custom-menu-button_black');
 
+            // change header logo color
+            this.headerLogo.style.filter = "invert(1)";
+            
+
+            // change cart icon stoke color
+            this.headerCartIcon.style.stroke = "black";
 
         }
 
@@ -110,6 +116,19 @@
         // transition header background to transparent
         // transition logo, menu and cart icon from black to white
         makeHeaderTransparent(){
+            // change header background color to transparent
+            this.header.classList.remove('custom-header_opaque');
+            this.header.classList.add('custom-header_transparent');
+
+            // change header menu button color
+            this.menuButton.classList.remove('custom-menu-button_black');
+            this.menuButton.classList.add('custom-menu-button_white');
+
+            // change header logo color
+            this.headerLogo.style.filter = "";
+
+            // change cart icon stroke color
+            this.headerCartIcon.style.stroke = "white";
 
         }
 

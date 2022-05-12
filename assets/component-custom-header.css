@@ -13,7 +13,6 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
-    /* background-color: white; */
     z-index: 9999999;
     padding: 0 25px;
 }
@@ -34,11 +33,20 @@
     align-items: center;
 }
 
-.custom-header > div:nth-child(even) > img{
+.custom-header > div:nth-child(even) > a > img{
     height: 90%;
     width: auto;
 }
 
+
+.custom-header_transparent{
+    background-color: transparent;
+}
+
+.custom-header_opaque{
+    background-color: white;
+    border-bottom: 1px solid #e4e4e4;
+}
 
 
 /*Menu button*/
