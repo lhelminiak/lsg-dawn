@@ -40,9 +40,9 @@
             "limit": 1,
             "settings": [
                 {
-                    "type": "text",
+                    "type": "richtext",
                     "id": "hero_heading",
-                    "default": "Hero heading text",
+                    "default": "<p>Talk about your brand</p>",
                     "label": "Heading for hero"
                 }
             ]
@@ -80,6 +80,19 @@
                     "id": "button_text_color",
                     "label": "Button text color",
                     "default": "#000000"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Custom Hero",
+            "blocks": [
+                {
+                    "type": "heading"
+                },
+                {
+                    "type": "button"
                 }
             ]
         }
