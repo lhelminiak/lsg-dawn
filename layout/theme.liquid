@@ -8,6 +8,11 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
+
+    {%comment%} custom fonts 
+      <link rel="stylesheet" href="{{ '3562B4_2_0.woff2' | asset_url }}">
+    {%endcomment%}
+
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
@@ -188,6 +193,73 @@
           font-size: 1.6rem;
         }
       }
+    {% endstyle %}
+
+
+    {% style %}
+      @font-face {
+        font-family: "Ogg-Regular";
+        src: url( {{ 'Ogg-Regular.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face{
+        font-family: "Ogg-Italic";
+        src: url( {{ 'OggTextBookItalic.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face{
+        font-family: "ry";
+        src: url( {{ 'Ogg_Roman.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face {
+        font-family: "Univers";
+        src: url( {{ '3562B4_2_0.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face {
+        font-family: 'Univers Condensed Bold';
+        src: url( {{ 'UniversCondensedBold.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face {
+        font-family: 'Univers Condensed Light';
+        src: url( {{ 'UniversCondensedLight.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face {
+        font-family: 'Univers Condensed Regular';
+        src: url( {{ 'UniversCondensedRegular.woff2' | asset_url }} ) format("woff2");
+      }
+
+
+      @font-face {
+        font-family: 'Univers Extended Bold';
+        src: url( {{ 'UniversExtBold.woff2' | asset_url }} ) format("woff2");
+      }
+
+
+      @font-face {
+        font-family: 'Univers Extended Regular';
+        src: url( {{ 'UniversExtendedRegular.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face {
+        font-family: 'Univers Extended Black';
+        src: url( {{ 'UniversExtBlack.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face {
+        font-family: 'Univers 45 light';
+        src: url( {{ 'Univers-45-light.woff2' | asset_url }} ) format("woff2");
+      }
+
+      @font-face {
+        font-family: 'Univers 65 bold';
+        src: url( {{ 'UniversExtBlack.woff2' | asset_url }} ) format("woff2");
+      }
+
+
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}

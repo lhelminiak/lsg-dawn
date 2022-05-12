@@ -10,8 +10,17 @@
 
 <custom-header class="custom-header__wrapper">
     <header class="custom-header">
-        <div>
 
+        <div>
+            {%comment%}
+                <custom-menu-button>
+                    <button class="custom-header__menu-button" id="customMenuButton">
+                    <span>Menu</span>
+                    </button>
+                </custom-menu-button>
+            {%endcomment%}
+    
+            {% render 'custom-menu-button', menu_button_text: 'menu', default_color: 'white' %}
         </div>
 
         <div>
@@ -23,7 +32,6 @@
                     height="{{ section.settings.logo.height }}"
                     alt="{{ shop.name }}"
                 />
-
             </a>
         </div>
 
@@ -40,20 +48,110 @@
     class CustomHeader extends HTMLElement {
         constructor(){
             super();
+            
+            // state
+
+            // funcs
+            this.handleScroll = this.handleScroll.bind(this);
+            this.makeHeaderOpaque = this.makeHeaderOpaque.bind(this);
+            this.makeHeaderTransparent = this.makeHeaderTransparent.bind(this);
+            this.handleMenuOpen = this.handleMenuOpen.bind(this);
+
+
+            // refs
+            this.menuButton = this.querySelector('.custom-menu-button');
+            console.log('menuButton', this.menuButton);
+
+            
+
+
         }
 
         connectedCallback() {
-            console.log('customHeader connected callback');
+            window.addEventListener('scroll', this.handleScroll, false);
+            this.handleScroll();
+            this.menuButton.addEventListener('click', this.handleMenuOpen);
+
+
         }
 
         disconnectedCallback() {
-            console.log('customHeader disconnected callback');
+            window.removeEventListener('scroll', this.handleOnScroll);
+        }
+
+
+        handleScroll() {
+            const amountScrolled = document.documentElement.scrollTop;
+            console.log('amountScrolled', amountScrolled);
+            if(amountScrolled >= 3){
+                this.makeHeaderOpaque();
+            } else {
+                this.makeHeaderTransparent();
+            }
+        }
+
+        handleMenuOpen() {
+           
+        }
+
+
+        // when page is scrolled down from the top
+        // transition header background to white
+        // transition logo, menu and cart icon from white to black
+        makeHeaderOpaque() {
+            this.menuButton.classList.remove('custom-menu-button_white');
+            this.menuButton.classList.add('custom-menu-button_black');
+
+
+        }
+
+
+        // when page is scrolled to, or is at the top 
+        // transition header background to transparent
+        // transition logo, menu and cart icon from black to white
+        makeHeaderTransparent(){
+
         }
 
     }
-
     customElements.define('custom-header', CustomHeader);
+
+
+    // custom menu button 
+    class CustomMenuButton extends HTMLElement {
+        constructor(){
+            super();
+
+
+            this.handleButtonClick = this.handleButtonClick.bind(this);
+
+        
+        }
+
+        connectedCallback() {
+            console.log('CustomMenuButton connected callback');
+            this.querySelector('#customMenuButton').addEventListener('click', () => {
+ 
+            });
+
+        }
+
+        disconnectedCallback() {
+            console.log('CustomMenuButton disconnected callback');
+        }
+
+
+
+        handleMenuClick
+    }
+    customElements.define('custom-menu-button', CustomMenuButton);
+
+
+
 {% endjavascript %}
+
+
+
 
 
 {% schema %}

@@ -13,7 +13,7 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
-    background-color: white;
+    /* background-color: white; */
     z-index: 9999999;
     padding: 0 25px;
 }
@@ -37,5 +37,67 @@
 .custom-header > div:nth-child(even) > img{
     height: 90%;
     width: auto;
+}
+
+
+
+/*Menu button*/
+.custom-menu-button{
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    background-color: transparent;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.custom-menu-button > span{
+    font-size: 7px;
+    line-height: 16px;
+    font-family: 'Univers', sans-serif;
+    margin-top: 1px;
+}
+
+.custom-menu-button_white{
+    border: 1.5px solid #F9F8F5;
+}
+
+.custom-menu-button_white > span{
+    color: #F9F8F5;
+}
+
+.custom-menu-button_black{
+    border: 1.5px solid black;
+}
+
+
+.custom-menu-button_black > span{
+    color: black
+}
+
+
+
+
+.custom-header__menu-button{
+    height: 48px;
+    width: 48px;
+    border: 1.5px solid #F9F8F5;
+    border-radius: 50%;
+    background-color: transparent;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-header__menu-button > span{
+    font-size: 7px;
+    line-height: 16px;
+    color: #F9F8F5;
+    font-family: 'Univers', sans-serif;
+    margin-top: 1px
 }
 
