@@ -6,8 +6,16 @@
         {% for block in section.blocks %}
             {% case block.type %}
                 {% when 'heading' %}
-                    {% if block.settings.hero_heading != blank%}
-                        <h1>{{ block.settings.hero_heading }}</h1>
+                    {% if block.settings.hero_heading != blank %}
+                        <h1>{{ block.settings.hero_heading | replace: 'p>', 'span>' }}</h1>
+                    {% endif %}
+                {% when 'heading_subtext' %}
+                    {% if block.settings.hero_heading_subtext != blank %}
+                        <h4>{{ block.settings.hero_heading_subtext | replace: 'p>', 'span>' }}</h4>
+                    {% endif %}
+                {% when 'heading_cta_text' %}
+                    {% if block.settings.heading_cta_text != blank %}
+                        <p>{{ block.settings.hero_cta_text | replace: 'p>', 'span>' }}</p>
                     {% endif %}
                 {% when 'button' %}
                     {% if block.settings.button_text != blank %}
@@ -42,8 +50,34 @@
                 {
                     "type": "richtext",
                     "id": "hero_heading",
-                    "default": "<p>Talk about your brand</p>",
+                    "default": "<p>Type your heading</p>",
                     "label": "Heading for hero"
+                }
+            ]
+        },
+        {
+            "type": "heading_subtext",
+            "name": "Hero Heading Subtext",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "hero_heading_subtext",
+                    "default": "<p>Type your heading subtext</p>",
+                    "label": "Hero heading subtext"
+                }
+            ]
+        },
+        {
+            "type": "heading_cta_text",
+            "name": "Hero Cta Text",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "hero_cta_text",
+                    "default": "<p>Type Cta text</p>",
+                    "label": "Hero Cta Text"
                 }
             ]
         },
