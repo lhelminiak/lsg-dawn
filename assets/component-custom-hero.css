@@ -93,6 +93,15 @@
 }
 
 
+
+@media only screen and (max-width: 800px){
+    .custom-hero__heading{
+      font-size: 5em;
+  }
+
+}
+
+
 @media only screen and (max-width: 500px){
 
     .desktop-only{
