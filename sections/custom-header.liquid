@@ -1,17 +1,9 @@
-{%comment%} Custom header component created by Luke H -- 5/11/22  {%endcomment%}
-
 {%comment%} CSS {%endcomment%}
-
-
 {{ 'component-custom-header.css' | asset_url | stylesheet_tag }}
 
 <custom-header class="custom-header__wrapper">
-    <header class="custom-header custom-header_transparent">
-
-        <div>
-            {% render 'custom-menu-button', menu_button_text: 'menu', default_color: 'white' %}
-        </div>
-
+    <header class="custom-header {% if template.name == 'index' %} custom-header-index custom-header_transparent {% else %} custom-header_opaque {% endif %}">
+        <div>{% render 'custom-menu-button', menu_button_text: 'menu', default_color: 'white' %}</div>
         <div>
             <a href="{{ routes.root_url }}">
                 <img
@@ -24,12 +16,54 @@
                 />
             </a>
         </div>
-
-        <div>
-            {% render 'custom-cart-icon' %}
-        </div>
+        <div>{% render 'custom-cart-icon' %}</div>
     </header>
 </custom-header>
+
+
+<custom-menu>
+    <div id="customMenu" class="custom-menu {%comment%} custom-menu_closed {%endcomment%} ">
+        <div class="custom-menu__top">
+            {% render 'custom-menu-button', menu_button_text: 'close', default_color: 'black' %}
+        </div>
+
+        <div class="custom-menu__main">
+                {% if section.settings.featured_product_links.links != blank %}
+                    {%- for link in section.settings.featured_product_links.links -%}
+                        {% if forloop.first == true %}
+                            <a href="{{ link.url }}" class="custom-menu__product-link">
+                                <div>
+                                    <img 
+                                        src="{{ link.object.featured_image| image_url: height: 57 }}" 
+                                        height="57"
+                                        width="auto"
+                                        alt="{{ link.title | escape }} link image"
+                                    >
+                                </div>
+                                <div><span>{{ link.title | escape }}</span></div>
+                                <div></div>
+                            </a>
+                        {% else %}
+                            <a href="{{ link.url }}" class="custom-menu__product-link">
+                                <div></div>
+                                <div><span>{{ link.title | escape }}</span></div>
+                                <div></div>
+                            </a>
+                        {% endif %}
+                    {%- endfor -%}
+                {% endif %}
+            
+
+            <div class="custom-menu__basic-link-container">
+                {%- for link in section.settings.menu.links -%}
+                    <a href="{{ link.url }}" class="custom-menu__basic-link">
+                        {{ link.title | escape }}
+                    </a>
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+</custom-menu>
 
 
 
@@ -38,52 +72,58 @@
     class CustomHeader extends HTMLElement {
         constructor(){
             super();
-            
-            // state
-
             // funcs
             this.handleScroll = this.handleScroll.bind(this);
             this.makeHeaderOpaque = this.makeHeaderOpaque.bind(this);
             this.makeHeaderTransparent = this.makeHeaderTransparent.bind(this);
             this.handleMenuOpen = this.handleMenuOpen.bind(this);
-
+            this.handleCartOpen = this.handleCartOpen.bind(this);
 
             // refs
             this.header = this.querySelector('header');
-            this.headerCartIcon = this.querySelector('.custom-cart-icon')
+            this.headerCartIcon = this.querySelector('.custom-cart-icon');
+
             this.menuButton = this.querySelector('.custom-menu-button');
             this.headerLogo = this.querySelector('#headerLogo');
-
-            
-
-
+            this.customDrawerMenu = document.querySelector('#customMenu');
+            this.customCartDrawer = document.querySelector('#customCartDrawer');
         }
 
         connectedCallback() {
             window.addEventListener('scroll', this.handleScroll, false);
             this.handleScroll();
             this.menuButton.addEventListener('click', this.handleMenuOpen);
-
+            this.headerCartIcon.addEventListener('click', this.handleCartOpen);
 
         }
 
         disconnectedCallback() {
             window.removeEventListener('scroll', this.handleOnScroll);
+            this.menuButton.removeEventListener('click', this.handleMenuOpen);
+            this.headerCartIcon.removeEventListener('click', this.handleCartOpen);
         }
 
 
         handleScroll() {
             const amountScrolled = document.documentElement.scrollTop;
-            console.log('amountScrolled', amountScrolled);
-            if(amountScrolled >= 3){
-                this.makeHeaderOpaque();
+            if(this.header.classList.contains('custom-header-index')){
+                if(amountScrolled >= 3){
+                    this.makeHeaderOpaque();
+                } else {
+                    this.makeHeaderTransparent();
+                }
             } else {
-                this.makeHeaderTransparent();
-            }
+                this.makeHeaderOpaque();
+                return
+            }   
         }
 
         handleMenuOpen() {
-           
+           this.customDrawerMenu.classList.add('custom-menu_open');
+        }
+
+        handleCartOpen(){
+            this.customCartDrawer.classList.add('custom-cart-drawer_open');
         }
 
 
@@ -94,18 +134,13 @@
             // change header background color to white
             this.header.classList.remove('custom-header_transparent');
             this.header.classList.add('custom-header_opaque');
-
             // change header menu button color
             this.menuButton.classList.remove('custom-menu-button_white');
             this.menuButton.classList.add('custom-menu-button_black');
-
             // change header logo color
             this.headerLogo.style.filter = "invert(1)";
-            
-
             // change cart icon stoke color
             this.headerCartIcon.style.stroke = "black";
-
         }
 
 
@@ -116,51 +151,47 @@
             // change header background color to transparent
             this.header.classList.remove('custom-header_opaque');
             this.header.classList.add('custom-header_transparent');
-
             // change header menu button color
             this.menuButton.classList.remove('custom-menu-button_black');
             this.menuButton.classList.add('custom-menu-button_white');
-
             // change header logo color
             this.headerLogo.style.filter = "";
-
             // change cart icon stroke color
             this.headerCartIcon.style.stroke = "white";
-
         }
-
     }
     customElements.define('custom-header', CustomHeader);
 
 
-    // custom menu button 
-    class CustomMenuButton extends HTMLElement {
+
+
+
+    class CustomMenu extends HTMLElement {
         constructor(){
             super();
-
-
-            this.handleButtonClick = this.handleButtonClick.bind(this);
-
-        
+            this.menuButton = this.querySelector('.custom-menu-button');
+            this.customDrawerMenu = this.querySelector('#customMenu');
+            this.handleMenuClose = this.handleMenuClose.bind(this);
+            
         }
 
         connectedCallback() {
-            console.log('CustomMenuButton connected callback');
-            this.querySelector('#customMenuButton').addEventListener('click', () => {
- 
-            });
-
+            this.menuButton.addEventListener('click', this.handleMenuClose);
         }
+
 
         disconnectedCallback() {
-            console.log('CustomMenuButton disconnected callback');
+            this.menuButton.removeEventListener('click', this.handleMenuClose);
         }
 
-
-
-        handleMenuClick
+        handleMenuClose() {
+            // console.log('handleMenuClose')
+            this.customDrawerMenu.classList.remove('custom-menu_open');
+            // this.customDrawerMenu.classList.add('custom-menu_closed');
+         }
     }
-    customElements.define('custom-menu-button', CustomMenuButton);
+
+    customElements.define('custom-menu', CustomMenu)
 
 
 
@@ -185,6 +216,7 @@
     {
         "type": "link_list",
         "id": "featured_product_links",
+        "default": "main-menu",
         "label": "Featured product links"
     },
     {

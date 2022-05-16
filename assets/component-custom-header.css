@@ -38,6 +38,10 @@
     width: auto;
 }
 
+.custom-cart-icon{
+    cursor: pointer;
+}
+
 
 .custom-header_transparent{
     background-color: transparent;
@@ -67,6 +71,7 @@
     line-height: 16px;
     font-family: 'Univers', sans-serif;
     margin-top: 1px;
+    letter-spacing: 0.7px;
 }
 
 .custom-menu-button_white{
@@ -79,14 +84,13 @@
 
 .custom-menu-button_black{
     border: 1.5px solid black;
+    background-color: white;
 }
 
 
 .custom-menu-button_black > span{
     color: black
 }
-
-
 
 
 .custom-header__menu-button{
@@ -108,4 +112,188 @@
     font-family: 'Univers', sans-serif;
     margin-top: 1px
 }
+
+
+/* slide out menu  */
+
+.custom-menu{
+    position: fixed;
+    top: 0;
+    left: -50%;
+    height: 100%;
+    width: 50%;
+    background-color: white;
+    z-index: 99999999999999;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0 25px;
+    transition: all 0.5s ease;
+}
+
+.custom-menu_open{
+    left: 0;
+}
+
+/* .custom-menu_closed{
+    left: -50%;
+} */
+
+.custom-menu__top{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 90px;
+    width: 100%;
+}
+
+.custom-menu__main{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-menu__product-link{
+    display: flex;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.custom-menu__product-link:visited{
+    color: black
+}
+
+.custom-menu__product-link > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-menu__product-link > div:nth-child(odd){
+    width: 50px;
+}
+
+
+.custom-menu__product-link > div:nth-child(1) > img{
+    width: auto;
+    height: 57px;
+    display: none;
+}
+
+.custom-menu__product-link > div:nth-child(2){
+    border-bottom: 1px solid transparent;
+}
+
+.custom-menu__product-link > div:nth-child(2) > span{
+    font-family: 'Ogg-Regular', sans-serif;
+    font-size: 60px;
+    line-height: 90px;
+    text-align: center;
+}
+
+.custom-menu__product-link:hover > div:nth-child(1) > img{
+    display: flex;
+}
+
+.custom-menu__product-link:hover > div:nth-child(2){
+    border-color: black;
+}
+
+.custom-menu__product-link:hover > div:nth-child(2) > span{
+    font-family: 'Ogg-Italic', sans-serif;
+}
+
+
+
+.custom-menu__basic-link-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+}
+
+.custom-menu__basic-link{
+    font-family: 'Univers Extended Regular', sans-serif;
+    font-size: 14px;
+    line-height: 30px;
+    letter-spacing: 1.16667px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+}
+
+.custom-menu__basic-link:visited{
+    color: black;
+}
+
+
+@media only screen and (max-width: 1250px){
+    .custom-menu__product-link > div:nth-child(2) > span{
+        font-size: 50px;
+        line-height: 80px;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .custom-menu__product-link > div:nth-child(2) > span{
+        font-size: 40px;
+        line-height: 65px;
+    }
+}
+
+
+
+
+@media only screen and (max-width: 850px){
+    .custom-menu{
+        width: 100%;
+        background-color: #F2F2F2;
+        left: -100%;
+    }
+    
+    .custom-menu_open{
+        left: 0;
+    }
+    
+    /* .custom-menu_closed{
+        left: -100%;
+    } */
+}
+
+
+@media only screen and (max-width: 500px){
+    .custom-header{
+        padding: 0 0;
+    }
+}
+
+
+@media only screen and (max-width: 450px){
+    .custom-menu__product-link > div:nth-child(2) > span{
+        font-size: 35px;
+        line-height: 52px;
+    }
+}
+
+@media only screen and (max-width: 400px){
+    .custom-menu__product-link > div:nth-child(2) > span{
+        font-size: 30px;
+        line-height: 45px;
+    }
+}
+
+
+
+
 

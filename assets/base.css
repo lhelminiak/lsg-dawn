@@ -280,6 +280,11 @@ html.no-js .no-js-hidden {
   }
 }
 
+
+body{
+  position: relative;
+}
+
 body,
 .color-background-1,
 .color-background-2,

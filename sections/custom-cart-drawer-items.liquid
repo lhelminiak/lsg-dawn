@@ -1,0 +1,54 @@
+
+{%- if cart != empty -%}
+    <div class="custom-cart-drawer__main-items">
+        {%- for item in cart.items -%}
+            <div class="custom-cart-drawer__item">
+                <div>
+                    <img src="{{ item.image | image_url: height: 80 }}"
+                            alt="{{ item.image.alt | escape }}"
+                            loading="lazy"
+                            width="auto"
+                            height="80"
+                    >
+                </div>
+
+                <div>
+                    <h4>{{ item.product.title | escape }}</h4>
+                    <p>{{ item.final_price | money_without_trailing_zeros }}</p>
+                    <div class="custom-quantity-selector">
+                        <button>
+                            {% render 'icon-minus' %}
+                        </button>
+
+                        <input
+                            type="number"
+                            value="{{ item.quantity }}"
+                            min="0"
+                        />
+
+                        <button>
+                            {% render 'icon-remove' %}
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <svg style="cursor: pointer;" id="customItemRemoveButton-{{ item.index | plus: 1 }}" data-item-index="{{ item.index | plus: 1 }}" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2.315L20.27 20.585" stroke="#272727" stroke-width="2" stroke-linecap="square"/>
+                        <path d="M20.27 2.315L2.00002 20.585" stroke="#272727" stroke-width="2" stroke-linecap="square"/>
+                    </svg>
+                </div>
+            </div>
+        {%- endfor -%}
+    </div>
+
+    <div class="custom-cart-drawer__subtotal-container">
+        <h3>subtotal</h3>
+        <p>{{ cart.total_price | money_with_currency }}</p>
+    </div>
+{%- else -%}
+    <div class="custom-cart-drawer__main_empty">
+        <p>Your cart is thirsty.</p>
+    </div>
+{%- endif -%}
+

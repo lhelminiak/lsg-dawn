@@ -1,0 +1,144 @@
+<custom-cart-drawer>
+    <div id="customCartDrawer" class="custom-cart-drawer">
+        <div class="custom-cart-drawer__top">
+            <div></div>
+            <div>
+                <img
+                    loading="lazy"
+                    src="{{ 'kin-logo-white.png' | asset_img_url: '80x' }}" 
+                    width="auto" 
+                    height="30" 
+                    alt="cart-kin-logo" 
+                >
+            </div>
+            <div>{%- render 'custom-cart-close-arrow' -%}</div>
+        </div>
+        
+        
+        <div class="custom-cart-drawer__main">
+            {%- if cart != empty -%}
+                <div class="custom-cart-drawer__main-items">
+                    {%- for item in cart.items -%}
+                        <div class="custom-cart-drawer__item">
+                            <div>
+                                <img src="{{ item.image | image_url: height: 80 }}"
+                                        alt="{{ item.image.alt | escape }}"
+                                        loading="lazy"
+                                        width="auto"
+                                        height="80"
+                                >
+                            </div>
+            
+                            <div>
+                                <h4>{{ item.product.title | escape }}</h4>
+                                <p>{{ item.final_price | money_without_trailing_zeros }}</p>
+                                <div class="custom-quantity-selector">
+                                    <button>
+                                        {% render 'icon-minus' %}
+                                    </button>
+
+                                    <input
+                                        type="number"
+                                        value="{{ item.quantity }}"
+                                        min="0"
+                                    />
+
+                                    <button>
+                                        {% render 'icon-remove' %}
+                                    </button>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <svg style="cursor: pointer;" id="customItemRemoveButton-{{ item.index | plus: 1 }}" data-item-index="{{ item.index | plus: 1 }}" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 2.315L20.27 20.585" stroke="#272727" stroke-width="2" stroke-linecap="square"/>
+                                    <path d="M20.27 2.315L2.00002 20.585" stroke="#272727" stroke-width="2" stroke-linecap="square"/>
+                                </svg>
+                            </div>
+                        </div>
+                    {%- endfor -%}
+                </div>
+            
+                <div class="custom-cart-drawer__subtotal-container">
+                    <h3>subtotal</h3>
+                    <p>{{ cart.total_price | money_with_currency }}</p>
+                </div>
+            {% else %}
+                <div class="custom-cart-drawer__main_empty">
+                    <p>Your cart is thirsty.</p>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="custom-cart-drawer__bottom">
+            <button class="button"></button>
+        </div>
+    </div>
+</custom-cart-drawer>
+
+{% javascript %}
+
+class CustomCartDrawer extends HTMLElement{
+    constructor(){
+        super();
+
+        this.cartDrawer = this.querySelector('#customCartDrawer')
+        this.cartCloseArrow = this.querySelector('#cartCloseArrow');
+        this.closeCartDrawer = this.closeCartDrawer.bind(this);
+        this.removeItemFromCart = this.removeItemFromCart.bind(this);
+        this.cartDrawerMain = this.querySelector('.custom-cart-drawer__main');
+    }
+
+    connectedCallback() {
+        this.cartCloseArrow.addEventListener('click', this.closeCartDrawer);
+        document.addEventListener('click', (e) => this.removeItemFromCart(e) )
+    }
+
+
+    disconnectedCallback() {
+    }
+
+    closeCartDrawer(){
+        this.cartDrawer.classList.remove('custom-cart-drawer_open');
+    }
+
+
+    removeItemFromCart(e){
+        if(e.target.id.includes('customItemRemoveButton')){
+            console.log(e.target);
+            console.log(e.target.dataset.itemIndex);
+
+            const body = JSON.stringify({
+                line: e.target.dataset.itemIndex,
+                quantity: 0,
+                sections: 'custom-cart-drawer-items',
+                sections_url: window.location.pathname
+            });
+
+            fetch(`${routes.cart_change_url}`, {...fetchConfig(), ...{ body }})
+            .then((response) => {
+                const text = response.text();
+                console.log('text', text);
+                return text
+            })
+            .then((response) => {
+                const parsedResponse = JSON.parse(response);
+                console.log('parsedResponse', parsedResponse.sections['custom-cart-drawer-items']);
+                this.cartDrawerMain.innerHTML = parsedResponse.sections['custom-cart-drawer-items'];
+            })
+            .catch(() => {
+                console.log('there was an error');
+            });
+
+
+
+        }
+    }
+
+    
+
+}
+
+customElements.define('custom-cart-drawer', CustomCartDrawer);
+{% endjavascript %}

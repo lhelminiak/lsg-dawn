@@ -1,0 +1,199 @@
+.custom-cart-drawer{
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    background-color: white;
+    z-index: 99999999999;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    border-left: 1px solid #e4e4e4;
+    transition: all 0.5s ease;
+}
+
+.custom-cart-drawer_open{
+    right: 0 !important;
+}
+
+.custom-cart-drawer__top{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 90px;
+}
+
+.custom-cart-drawer__top > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-cart-drawer__top > div:nth-child(odd){
+    width: 100px;
+}
+
+.custom-cart-drawer__top > div:nth-child(odd) > svg{
+    cursor: pointer;
+}
+
+.custom-cart-drawer__top > div:nth-child(even){
+    flex: 1;
+}
+
+.custom-cart-drawer__top > div:nth-child(even) > img{
+    filter: invert(1);
+}
+
+
+.custom-cart-drawer__main{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0 20px
+}
+
+.custom-cart-drawer__main_empty{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.custom-cart-drawer__main_empty > p{
+    font-family: 'Ogg-Regular', sans-serif;
+    font-size: 40px;
+    line-height: 53px;
+    color: #2b2b2b;
+}
+
+
+.custom-cart-drawer__main-items{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.custom-cart-drawer__item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.custom-cart-drawer__item > div:nth-child(odd){
+    width: 50px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-cart-drawer__item > div:nth-child(even){
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0 10px;
+}
+
+.custom-cart-drawer__item > div:nth-child(even) > h4{
+    font-family: 'Ogg-Regular', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    margin: 0;
+    color: #2b2b2b;
+}
+
+.custom-cart-drawer__item > div:nth-child(even) > p{
+    font-family: "Univers", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+    color: #2b2b2b;
+}
+
+.custom-quantity-selector{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 30;
+}
+
+.custom-quantity-selector > button{
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-quantity-selector > input{
+    width: 20px;
+    outline: none;
+    border: none;
+}
+
+
+.custom-cart-drawer__bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+.custom-cart-drawer__bottom > button{
+    width: 80%;
+}
+
+
+.custom-cart-drawer__subtotal-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #272727;
+    margin-top: 20px;
+}
+
+
+.custom-cart-drawer__subtotal-container > h3{
+    font-family: 'Univers 45 light', sans-serif;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0.458333px;
+    text-transform: uppercase;
+    color: #2D2D2D;
+}
+
+.custom-cart-drawer__subtotal-container > p{
+    font-family: 'Univers Extended Bold', sans-serif;
+    font-size: 14px;
+    line-height: 31px;
+    letter-spacing: 0.777778px;
+    text-transform: uppercase;
+    color: #2D2D2D;
+}
+
+
+@media only screen and (max-width: 500px){
+    .custom-cart-drawer{
+        background-color: #F2F2F2;
+        right: -100%;
+        width: 100%;
+    }
+}

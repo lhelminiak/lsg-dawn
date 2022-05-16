@@ -1,8 +1,10 @@
 {% comment %}
  // custom menu button 
  // used in custom-header.liquid & custom-menu-drawer.liquid
- // variable default_color cooresponds to the color (white or black) that the button should be 
+ // variable default_color cooresponds to the color (white or black) that the button should be
+ //         acceptable values: "white" or "black" 
  // variable menu_button_text is used to set the menu button text
+ //         acceptable values: "menu" or "close" (but can be any string)
 {% endcomment %}
 
 <button class="custom-menu-button {% if default_color == "black" %} custom-menu-button_black {% else %} custom-menu-button_white {% endif %}">

@@ -9,10 +9,6 @@
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
 
-    {%comment%} custom fonts 
-      <link rel="stylesheet" href="{{ '3562B4_2_0.woff2' | asset_url }}">
-    {%endcomment%}
-
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
@@ -264,6 +260,10 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
+    {% comment %} {% endcomment %}
+    {{ 'component-custom-cart-drawer.css' | asset_url | stylesheet_tag }}
+
+
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
     {%- endunless -%}
@@ -287,15 +287,25 @@
       {{ "accessibility.skip_to_text" | t }}
     </a>
 
-    {%comment%}
+
+    {%comment%}   {%endcomment%}
+     {% render 'custom-cart-drawer' %}
+  
+    
+
+    {%comment%}      
       {%- if settings.cart_type == 'drawer' -%}
         {%- render 'cart-drawer' -%}
       {%- endif -%}
     {%endcomment%}
+ 
+
 
     {%comment%}{% section 'announcement-bar' %}{%endcomment%}
     {%comment%}{% section 'header' %}{%endcomment%}
+    
     {% section 'custom-header' %}
+
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>

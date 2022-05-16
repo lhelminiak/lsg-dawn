@@ -1,31 +1,85 @@
 
 {{ 'component-custom-hero.css' | asset_url | stylesheet_tag }}
 
+{% style %}
+
+    {% for block in section.blocks %}
+        {% case block.type %}
+            {% when 'button' %}
+                .custom-hero__cta{
+                    background-color: {{ block.settings.button_main_color }} ;
+                    color: {{ block.settings.button_text_color }} ;
+                };
+        {% endcase %}
+    {% endfor %}
+{% endstyle %}
+
+
 <div class="custom-hero">
-    <div>
-        {% for block in section.blocks %}
-            {% case block.type %}
-                {% when 'heading' %}
-                    {% if block.settings.hero_heading != blank %}
-                        <h1>{{ block.settings.hero_heading | replace: 'p>', 'span>' }}</h1>
-                    {% endif %}
-                {% when 'heading_subtext' %}
-                    {% if block.settings.hero_heading_subtext != blank %}
-                        <h4>{{ block.settings.hero_heading_subtext | replace: 'p>', 'span>' }}</h4>
-                    {% endif %}
-                {% when 'heading_cta_text' %}
-                    {% if block.settings.heading_cta_text != blank %}
-                        <p>{{ block.settings.hero_cta_text | replace: 'p>', 'span>' }}</p>
-                    {% endif %}
-                {% when 'button' %}
-                    {% if block.settings.button_text != blank %}
-                        <a href="{{ block.settings.button_url }}">{{ block.settings.button_text }}</a>
-                    {% endif %}
-            {% endcase %}
-        {% endfor %}
 
-
+    <div class="custom-hero__image-container">
+      <img
+        srcset="{%- if section.settings.hero_image.width >= 375 -%}{{ section.settings.hero_image | image_url: width: 375 }} 375w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 550 -%}{{ section.settings.hero_image | image_url: width: 550 }} 550w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 750 -%}{{ section.settings.hero_image | image_url: width: 750 }} 750w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 1100 -%}{{ section.settings.hero_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 1500 -%}{{ section.settings.hero_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 1780 -%}{{ section.settings.hero_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 2000 -%}{{ section.settings.hero_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 3000 -%}{{ section.settings.hero_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+          {%- if section.settings.hero_image.width >= 3840 -%}{{ section.settings.hero_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+          {{ section.settings.hero_image | image_url }} {{ section.settings.hero_image.width }}w"
+        sizes="100vw"
+        src="{{ section.settings.hero_image | image_url: width: 1500 }}"
+        loading="lazy"
+        alt="{{ section.settings.hero_image.alt | escape }}"
+        width="{{ section.settings.hero_image.width }}"
+        height="{{ section.settings.hero_image.width | divided_by: section.settings.hero_image.aspect_ratio }}"  
+      >
     </div>
+
+
+    <div class="custom-hero__content-container">
+        <div class="custom-hero__content-container__inner">
+            <div>
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'heading' %}
+                            {% if block.settings.hero_heading != blank %}
+                                <h1 class="custom-hero__heading">{{ block.settings.hero_heading | replace: 'p>', 'span>' }}</h1>
+                            {% endif %}
+                        {% when 'heading_subtext' %}
+                            {% if block.settings.hero_heading_subtext != blank %}
+                                <h4 class="custom-hero__subtext">{{ block.settings.hero_heading_subtext | replace: 'p>', 'span>' }}</h4>
+                            {% endif %}
+                        {% when 'heading_cta_text' %}
+                            {% if block.settings.hero_cta_text != blank %}
+                                <h5 class="custom-hero__cta-text">{{ block.settings.hero_cta_text | replace: 'p>', 'span>' }}</h5>
+                            {% endif %}
+                        {% when 'button' %}
+
+                            {% if block.settings.button_text != blank %}
+                                <a class="custom-hero__cta {% if block.settings.mobile_button_text != blank %}desktop-only{% endif %}" href="{{ block.settings.button_url }}"> 
+                                    {{ block.settings.button_text }}
+                                </a>
+                            {% endif %}
+
+                            {% if block.settings.mobile_button_text != blank %}
+                                <a href="{{ block.settings.button_url }}" class="custom-hero__cta mobile-only">
+                                    {{ block.settings.mobile_button_text }}
+                                </a>
+                            {% endif %}
+                            
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+    {%comment%} custom hero overlay div {%endcomment%}
+
 </div>
 
 {% schema %}
@@ -90,7 +144,13 @@
                     "type": "text",
                     "id": "button_text",
                     "default": "Button text",
-                    "label": "Text for button"
+                    "label": "Desktop button text"
+                },
+                {
+                    "type": "text",
+                    "id": "mobile_button_text",
+                    "default": "Mobile button text",
+                    "label": "Mobile button text"
                 },
                 {
                     "type": "url",
@@ -102,12 +162,6 @@
                     "id": "button_main_color",
                     "label": "Main button color",
                     "default": "#FFFFFF"
-                },
-                {
-                    "type": "color",
-                    "id": "button_border_color",
-                    "label": "Button border color",
-                    "default": "#000000"
                 },
                 {
                     "type": "color",

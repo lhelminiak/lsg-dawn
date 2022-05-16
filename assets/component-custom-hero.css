@@ -1,3 +1,145 @@
+
+.desktop-only{
+    display: initial;
+}
+
+.mobile-only{
+    display: none;
+}
+
 .custom-hero{
+    background: linear-gradient(180deg, #685A8F 0%, #9178B5 61.78%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: stretch;
+    overflow-x: hidden;
+}
+
+.custom-hero__image-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: stretch;
+    overflow-x: hidden;
+}
+
+.custom-hero__content-container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.custom-hero__content-container__inner{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.custom-hero__content-container__inner > div{
+    padding: 0 50px;
+}
+
+.custom-hero__heading{
+    font-family: 'Ogg-Regular', sans-serif;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 6em;
+}
+
+.custom-hero__heading > span > em{
+    font-family: 'Ogg-Italic', sans-serif;
+}
+
+
+.custom-hero__subtext{
+    font-family: 'Univers', sans-serif;
+    color: white;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.custom-hero__cta-text{
+    font-family: 'Univers', sans-serif;
+    color: white;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.custom-hero__cta{
+    font-family: 'Univers', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 1.16667px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    text-decoration: none;
+    padding: 10px 100px;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media only screen and (max-width: 500px){
+
+    .desktop-only{
+        display: none;
+    }
+
+    .mobile-only{
+        display: flex;
+    }
+
+
+    .custom-hero__content-container{
+        position: relative;
+        margin-top: -90px;
+        padding-bottom: 30px;
+    }
+
+    .custom-hero__image-container > img{
+        height: 350px;
+    }
+
+    .custom-hero__content-container__inner > div{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .custom-hero__heading{
+        text-align: center;
+        font-size: 4em;
+        margin-bottom: 0;
+    }
     
+    .custom-hero__subtext{
+        text-align: center;
+    }
+    
+
+    .custom-hero__cta-text{
+        text-align: center;
+    }
+
+    .custom-hero__cta{
+        padding: 10px 0;
+        width: 100%;
+    }
 }
