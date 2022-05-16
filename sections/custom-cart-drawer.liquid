@@ -32,9 +32,11 @@
                             <div>
                                 <h4>{{ item.product.title | escape }}</h4>
                                 <p>{{ item.final_price | money_without_trailing_zeros }}</p>
+                                
                                 <div class="custom-quantity-selector">
+                                    {% comment %}
                                     <button>
-                                        {% render 'icon-minus' %}
+                                        -
                                     </button>
 
                                     <input
@@ -44,8 +46,10 @@
                                     />
 
                                     <button>
-                                        {% render 'icon-remove' %}
+                                        
+                                        +
                                     </button>
+                                    {% endcomment %}
                                 </div>
                             </div>
             

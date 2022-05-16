@@ -67,7 +67,6 @@
     font-family: 'Ogg-Italic', sans-serif;
 }
 
-
 .custom-hero__subtext{
     font-family: 'Univers', sans-serif;
     color: white;
@@ -91,7 +90,6 @@
     border-radius: 3px;
     text-decoration: none;
     padding: 10px 100px;
-    /* display: flex; */
     justify-content: center;
     align-items: center;
 }
@@ -102,7 +100,6 @@
     .custom-hero__heading{
       font-size: 5em;
   }
-
 }
 
 
@@ -116,7 +113,6 @@
         display: flex;
     }
 
-
     .custom-hero__content-container{
         position: relative;
         margin-top: -90px;
@@ -124,7 +120,6 @@
     }
 
     .custom-hero__image-container > img{
-        /* height: 350px; */
         height: 50vh;
     }
 
@@ -136,7 +131,6 @@
         align-items: center;
     }
 
-
     .custom-hero__heading{
         text-align: center;
         font-size: 4em;
@@ -147,7 +141,6 @@
         text-align: center;
     }
     
-
     .custom-hero__cta-text{
         text-align: center;
     }
